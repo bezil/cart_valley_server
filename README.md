@@ -6,3 +6,5 @@
   * configure password for postgres in dev/config.exs and .env file
   * mix ecto.create
   * mix phx.server or run shell ./start-server.sh with chmod +x start-server.sh permission
+
+Server will running on http://localhost:4000/
