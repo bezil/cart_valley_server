@@ -7,4 +7,6 @@
   * mix ecto.create
   * mix phx.server or run shell ./start-server.sh with chmod +x start-server.sh permission
 
+  * add {:cors_plug, "~> 3.0"} in mix for fixing cors issue
+
 Server will running on http://localhost:4000/

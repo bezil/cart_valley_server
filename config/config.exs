@@ -22,6 +22,13 @@ config :cart_valley_server, CartValleyServerWeb.Endpoint,
   pubsub_server: CartValleyServer.PubSub,
   live_view: [signing_salt: "cYECMmCk"]
 
+# Configures Cors
+config :cors_plug,
+  origins: ["http://localhost:5173"],
+  allow_headers: ["content-type"],
+  max_age: 86400,
+  methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"]
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

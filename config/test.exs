@@ -7,7 +7,7 @@ import Config
 # Run `mix help test` for more information.
 config :cart_valley_server, CartValleyServer.Repo,
   username: "postgres",
-  password: "postgres",
+  password: System.get_env("DATABASE_PASSWORD"),
   hostname: "localhost",
   database: "cart_valley_server_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,

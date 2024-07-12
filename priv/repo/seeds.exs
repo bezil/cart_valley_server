@@ -14,11 +14,22 @@ alias CartValleyServer.Inventory.Product
 
 Repo.delete_all(Product)
 
-for n <- 1..10 do
+if Mix.env() == :dev do
+    for n <- 1..10 do
+        Repo.insert!(%Product{
+            name: "Product title #{n}",
+            description: "Product description #{n}",
+            price: 10.00 * n,
+            quantity: 2 + n,
+        })
+    end
+end
+
+if Mix.env() == :test do
     Repo.insert!(%Product{
-        name: "Product title #{n}",
-        description: "Product description #{n}",
-        price: 10.00 * n,
-        quantity: 2 + n,
+        name: "Test seeded Product title",
+        description: "Test seeded Product description",
+        price: 99.00,
+        quantity: 20,
     })
 end

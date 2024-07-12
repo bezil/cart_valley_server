@@ -13,7 +13,7 @@ defmodule CartValleyServer.InventoryFixtures do
       |> Enum.into(%{
         description: "some description",
         name: "some name",
-        price: "120.5",
+        price: "120.50",
         quantity: 42
       })
       |> CartValleyServer.Inventory.create_product()

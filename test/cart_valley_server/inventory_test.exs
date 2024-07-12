@@ -11,8 +11,11 @@ defmodule CartValleyServer.InventoryTest do
     @invalid_attrs %{name: nil, description: nil, price: nil, quantity: nil}
 
     test "list_products/0 returns all products" do
-      product = product_fixture()
-      assert Inventory.list_products() == [product]
+      [product] = Inventory.list_products()
+      assert product.name == "Test seeded Product title"
+      assert product.description == "Test seeded Product description"
+      assert product.price == Decimal.new("99.00")
+      assert product.quantity == 20
     end
 
     test "get_product!/1 returns the product with given id" do
@@ -21,12 +24,12 @@ defmodule CartValleyServer.InventoryTest do
     end
 
     test "create_product/1 with valid data creates a product" do
-      valid_attrs = %{name: "some name", description: "some description", price: "120.5", quantity: 42}
+      valid_attrs = %{name: "some name", description: "some description", price: "120.50", quantity: 42}
 
       assert {:ok, %Product{} = product} = Inventory.create_product(valid_attrs)
       assert product.name == "some name"
       assert product.description == "some description"
-      assert product.price == Decimal.new("120.5")
+      assert product.price == Decimal.new("120.50")
       assert product.quantity == 42
     end
 
@@ -36,12 +39,12 @@ defmodule CartValleyServer.InventoryTest do
 
     test "update_product/2 with valid data updates the product" do
       product = product_fixture()
-      update_attrs = %{name: "some updated name", description: "some updated description", price: "456.7", quantity: 43}
+      update_attrs = %{name: "some updated name", description: "some updated description", price: "456.70", quantity: 43}
 
       assert {:ok, %Product{} = product} = Inventory.update_product(product, update_attrs)
       assert product.name == "some updated name"
       assert product.description == "some updated description"
-      assert product.price == Decimal.new("456.7")
+      assert product.price == Decimal.new("456.70")
       assert product.quantity == 43
     end
 

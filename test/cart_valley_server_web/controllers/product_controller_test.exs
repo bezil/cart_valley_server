@@ -8,13 +8,13 @@ defmodule CartValleyServerWeb.ProductControllerTest do
   @create_attrs %{
     name: "some name",
     description: "some description",
-    price: "120.5",
+    price: "120.50",
     quantity: 42
   }
   @update_attrs %{
     name: "some updated name",
     description: "some updated description",
-    price: "456.7",
+    price: "456.70",
     quantity: 43
   }
   @invalid_attrs %{name: nil, description: nil, price: nil, quantity: nil}
@@ -25,8 +25,19 @@ defmodule CartValleyServerWeb.ProductControllerTest do
 
   describe "index" do
     test "lists all products", %{conn: conn} do
+      # Send an HTTP GET request to the "/api/products" endpoint
       conn = get(conn, ~p"/api/products")
-      assert json_response(conn, 200)["data"] == []
+
+      [response_data] = json_response(conn, 200)["data"]
+
+      # Parse the JSON response body and assert that the "data" field is same as seeded data
+      assert %{
+        "description" => "Test seeded Product description",
+        "id" => _id,
+        "name" => "Test seeded Product title",
+        "price" => "99.00",
+        "quantity" => 20
+      } = response_data
     end
   end
 
@@ -41,7 +52,7 @@ defmodule CartValleyServerWeb.ProductControllerTest do
                "id" => ^id,
                "description" => "some description",
                "name" => "some name",
-               "price" => "120.5",
+               "price" => "120.50",
                "quantity" => 42
              } = json_response(conn, 200)["data"]
     end
@@ -65,7 +76,7 @@ defmodule CartValleyServerWeb.ProductControllerTest do
                "id" => ^id,
                "description" => "some updated description",
                "name" => "some updated name",
-               "price" => "456.7",
+               "price" => "456.70",
                "quantity" => 43
              } = json_response(conn, 200)["data"]
     end
