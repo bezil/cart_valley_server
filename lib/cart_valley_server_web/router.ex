@@ -7,6 +7,8 @@ defmodule CartValleyServerWeb.Router do
 
   scope "/api", CartValleyServerWeb do
     pipe_through :api
+
+    get "/products", ProductController, :index
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

@@ -9,3 +9,16 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias CartValleyServer.Repo
+alias CartValleyServer.Inventory.Product
+
+Repo.delete_all(Product)
+
+for n <- 1..10 do
+    Repo.insert!(%Product{
+        name: "Product title #{n}",
+        description: "Product description #{n}",
+        price: 10.00 * n,
+        quantity: 2 + n,
+    })
+end
