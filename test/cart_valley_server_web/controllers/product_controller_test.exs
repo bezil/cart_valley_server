@@ -107,9 +107,13 @@ defmodule CartValleyServerWeb.ProductControllerTest do
       ]
 
       conn = post(conn, ~p"/api/products/update-quantity", %{_json: product_params_list})
+      # Fetch the updated product_1 from the database
+      updated_product_1 = CartValleyServer.Inventory.get_product!(product_1.id)
 
       assert conn.status == 200
       assert json_response(conn, 200)["message"] == "All products updated successfully"
+      # Assert the quantity has changed to 9
+      assert updated_product_1.quantity == 9
     end
   end
 
