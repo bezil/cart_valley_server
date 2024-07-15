@@ -9,6 +9,7 @@ defmodule CartValleyServerWeb.Router do
     pipe_through :api
 
     resources "/products", ProductController
+    post "/products/update-quantity", ProductController, :update_quantity
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

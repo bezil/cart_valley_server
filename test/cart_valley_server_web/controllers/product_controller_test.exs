@@ -87,6 +87,32 @@ defmodule CartValleyServerWeb.ProductControllerTest do
     end
   end
 
+  describe "update_quantity" do
+    setup do
+      # Insert necessary products into the database
+      product1 = %{name: "Product 192", quantity: 10, price: 100.0, description: "Some description"}
+      product2 = %{name: "Product 193", quantity: 10, price: 100.0, description: "Some description"}
+
+      {:ok, product_1} = CartValleyServer.Inventory.create_product(product1)
+      {:ok, product_2} = CartValleyServer.Inventory.create_product(product2)
+
+      # Return products in the test context
+      %{product_1: product_1, product_2: product_2}
+    end
+
+    test "updates product quantities successfully", %{conn: conn, product_1: product_1, product_2: product_2} do
+      product_params_list = [
+        %{"id" => product_1.id, "sold" => 1},
+        %{"id" => product_2.id, "sold" => 2}
+      ]
+
+      conn = post(conn, ~p"/api/products/update-quantity", %{_json: product_params_list})
+
+      assert conn.status == 200
+      assert json_response(conn, 200)["message"] == "All products updated successfully"
+    end
+  end
+
   describe "delete product" do
     setup [:create_product]
 
